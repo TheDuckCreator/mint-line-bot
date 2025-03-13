@@ -21,6 +21,7 @@
     "url": "https://github.com/faizanah/secure-webhook/issues"
   },
   "dependencies": {
+    "@line/bot-sdk": "^9.7.1",
     "body-parser": "^1.20.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2"
