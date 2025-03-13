@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const crypto = require("crypto");
-
+const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -13,6 +13,7 @@ const SECRET = process.env.SECRET;
 
 // Middleware to parse incoming JSON requests
 app.use(bodyParser.json());
+app.use(cors({}));
 
 // Function to verify the signature
 const verifySignature = (secret, payload, signature) => {
@@ -85,9 +86,11 @@ app.post(
 );
 
 // Request For Signature Generation
-app.post("/generate-signature", (req, res) => {
+app.post("/api/generate-signature", (req, res) => {
   const payload = req.body;
-  const inputPassword = payload?.password;
+  const inputPassword = req?.headers.authorization
+    ? req.headers.authorization.split(" ")[1]
+    : null;
   const inputToken = payload?.token;
   if (!inputPassword) {
     return res.status(400).json({ error: "Webhook Password is missing" });
