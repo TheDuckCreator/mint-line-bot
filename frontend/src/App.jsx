@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Input, Button, Textarea, Divider } from "shineout/";
+import { Input, Button, Textarea, Divider } from "shineout";
 import axios from "axios";
 
 import "./App.css";

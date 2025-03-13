@@ -1,9 +1,15 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-require("dotenv").config();
-const crypto = require("crypto");
-const cors = require("cors");
+import express from "express";
+import bodyParser from "body-parser";
+import dotenv from "dotenv";
+import crypto from "crypto";
+import cors from "cors";
+import path from "path";
+import * as url from "url";
+const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
+
+dotenv.config();
 const app = express();
+
 const PORT = process.env.PORT || 3000;
 
 const WEBHOOK_TOKEN = process.env.WEBHOOK_TOKEN;
@@ -70,6 +76,8 @@ const verifyWebhookMiddleware = (webhookToken, secret) => {
     next();
   };
 };
+
+app.use("/", express.static(path.join(__dirname, "./www")));
 
 // Endpoint to receive webhook payloads
 app.post(
