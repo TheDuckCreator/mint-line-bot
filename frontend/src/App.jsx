@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Input, Button, Textarea, Divider } from "shineout";
+import { Input, Button, Divider } from "antd";
 import axios from "axios";
 
 import "./App.css";
 
+const { TextArea } = Input;
 function App() {
   const [passwordInput, setPasswordInput] = useState("");
   const [showGenerateToken, setShowGenerateToken] = useState(false);
@@ -59,7 +60,7 @@ function App() {
           <Input.Password
             placeTitle='Password'
             placeholder='Password'
-            onChange={(e) => setPasswordInput(e)}
+            onChange={(e) => setPasswordInput(e.target.value)}
             value={passwordInput}
             size='large'
             width={400}
@@ -76,7 +77,7 @@ function App() {
         <div style={{ marginTop: 40 }}>
           <h4>Generate Webhook Signature and URL Success</h4>
           {signature && (
-            <Textarea
+            <TextArea
               rows={3}
               value={`${import.meta.env.VITE_WEBHOOK_URL_PREFIX}/webhook/${
                 import.meta.env.VITE_WEBHOOK_TOKEN
@@ -88,7 +89,6 @@ function App() {
           )}
           <div style={{ marginTop: 10 }}>
             <Button
-              type='success'
               onClick={() => {
                 navigator.clipboard.writeText(
                   `${import.meta.env.VITE_WEBHOOK_URL_PREFIX}/webhook/${

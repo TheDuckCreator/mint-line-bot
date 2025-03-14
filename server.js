@@ -77,18 +77,18 @@ const verifyWebhookMiddleware = (webhookToken, secret) => {
   };
 };
 
-app.use("/", express.static(path.join(__dirname, "./www")));
+app.use("/", express.static(path.join(__dirname, "./frontend/dist")));
 
 // Endpoint to receive webhook payloads
 app.post(
   "/webhook/:token/:signature",
   verifyWebhookMiddleware(WEBHOOK_TOKEN, SECRET),
   (req, res) => {
-    console.log("Received webhook payload:", req.body);
     const { events, destination } = req.body;
 
     // Example: handling a specific event
     console.log("Events", events);
+    console.log("Destination", destination);
     res.status(200).send("Webhook received successfully");
   }
 );
