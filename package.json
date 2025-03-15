@@ -1,5 +1,5 @@
 {
-  "name": "secure-webhook",
+  "name": "iaec-line-webhook",
   "version": "1.0.0",
   "description": "A Node.js application for implementing secure webhooks",
   "main": "index.js",
@@ -7,7 +7,9 @@
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "build": "docker build --tag=iarc/iaec-webhook:latest .",
+    "publish": "docker push iarc/iaec-webhook:latest"
   },
   "author": {
     "name": "Faizan Ahmad",

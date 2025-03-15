@@ -86,6 +86,6 @@ app.post("/api/generate-signature", (req, res) => {
 });
 
 // Start the server
-app.listen(PORT, () => {
+app.listen(PORT || 3004, () => {
   console.log(`Secure webhook server running on port ${PORT}`);
 });

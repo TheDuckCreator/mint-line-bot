@@ -1,0 +1,8 @@
+node_modules/
+public/
+index.html
+src/
+eslint.config.js
+package.json
+package-lock.json
+vite.config.js

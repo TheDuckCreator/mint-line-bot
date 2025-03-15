@@ -1,0 +1,10 @@
+node_modules/
+frontend/node_modules/
+frontend/public/
+frontend/index.html
+frontend/src/
+frontend/eslint.config.js
+frontend/package.json
+frontend/package-lock.json
+frontend/vite.config.js
+logs/
