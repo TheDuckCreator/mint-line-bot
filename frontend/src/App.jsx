@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input, Button, Divider } from "antd";
 import axios from "axios";
 
@@ -9,6 +9,20 @@ function App() {
   const [passwordInput, setPasswordInput] = useState("");
   const [showGenerateToken, setShowGenerateToken] = useState(false);
   const [signature, setSignature] = useState("");
+  const [siteInfo, setSiteInfo] = useState({});
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/info`)
+      .then((res) => {
+        const data = res.data;
+        setSiteInfo(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    return () => {};
+  }, []);
 
   const handleRequestToken = async () => {
     try {
@@ -16,15 +30,16 @@ function App() {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${import.meta.env.VITE_WEBHOOK_PASSWORD}`,
+          authorization: `Bearer ${passwordInput}`,
         },
         data: {
-          token: import.meta.env.VITE_WEBHOOK_TOKEN,
+          token: siteInfo?.token,
         },
-        url: `${import.meta.env.VITE_API_URL}/api/generate-signature`,
+        url: `${import.meta.env.VITE_API_URL}/generate-signature`,
       };
       const { data } = await axios(config);
       setSignature(data?.signature);
+      setShowGenerateToken(true);
     } catch (error) {
       alert(
         `Error On Generating Token: ${
@@ -47,13 +62,7 @@ function App() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          const actualPassword = import.meta.env.VITE_WEBHOOK_PASSWORD;
-          if (passwordInput === actualPassword) {
-            setShowGenerateToken(true);
-            handleRequestToken();
-          } else {
-            alert("Incorrect password");
-          }
+          handleRequestToken();
         }}
       >
         <div>
@@ -79,9 +88,7 @@ function App() {
           {signature && (
             <TextArea
               rows={3}
-              value={`${import.meta.env.VITE_WEBHOOK_URL_PREFIX}/webhook/${
-                import.meta.env.VITE_WEBHOOK_TOKEN
-              }/${signature}`}
+              value={`${siteInfo?.urlPrefix}/webhook/${siteInfo?.token}/${signature}`}
               size='large'
               readOnly
               width={500}
@@ -91,9 +98,7 @@ function App() {
             <Button
               onClick={() => {
                 navigator.clipboard.writeText(
-                  `${import.meta.env.VITE_WEBHOOK_URL_PREFIX}/webhook/${
-                    import.meta.env.VITE_WEBHOOK_TOKEN
-                  }/${signature}`
+                  `${siteInfo?.urlPrefix}/webhook/${siteInfo?.token}/${signature}`
                 );
                 alert("Copied to clipboard");
               }}

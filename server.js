@@ -20,6 +20,7 @@ const PORT = process.env.PORT || 3000;
 const WEBHOOK_TOKEN = process.env.WEBHOOK_TOKEN;
 const PASSWORD = process.env.PASSWORD;
 const SECRET = process.env.SECRET;
+const URL_PREFIX = process.env.WEBHOOK_URL_PREFIX;
 
 // Middleware to parse incoming JSON requests
 app.use(bodyParser.json());
@@ -83,6 +84,13 @@ app.post("/api/generate-signature", (req, res) => {
     })
   );
   res.json({ signature });
+});
+
+app.get("/api/info", (req, res) => {
+  res.json({
+    token: WEBHOOK_TOKEN,
+    urlPrefix: URL_PREFIX,
+  });
 });
 
 // Start the server
