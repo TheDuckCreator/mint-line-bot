@@ -1,8 +1,7 @@
 import _ from "lodash";
-import logger from "./config/logger.js";
 import axios from "axios";
 import dotenv from "dotenv";
-import chat from "./functions/chat.js";
+import chat from "./chat.js";
 
 dotenv.config({});
 /**
@@ -48,11 +47,6 @@ async function eventHandling(event, code) {
     console.log("Response status:", status);
   } catch (error) {
     console.error("Error in event handling:", error.message);
-    logger.error(
-      `Error in processing the event: ${
-        error?.response?.data?.error?.message || error?.message
-      }`
-    );
   }
 }
 

@@ -7,8 +7,9 @@ import * as url from "url";
 import dayjs from "dayjs";
 
 import { generate, verifyWebhookMiddleware } from "./functions/middleware.js";
-import eventHandling from "./eventHandling.js";
+import eventHandling from "./functions/eventHandling.js";
 import logger from "./config/logger.js";
+import discordRoute from "./routes/discord.route.js";
 
 dotenv.config();
 
@@ -92,6 +93,8 @@ app.get("/api/info", (req, res) => {
     urlPrefix: URL_PREFIX,
   });
 });
+
+app.use("/api/discord", discordRoute);
 
 // Start the server
 app.listen(PORT || 3004, () => {
