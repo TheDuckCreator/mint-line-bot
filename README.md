@@ -1,20 +1,4 @@
-# EManufac Line Webhook
-
-For these codes and idea is original from Faizan Ahmad [faizanah](https://github.com/faizanah). Thank you very much for the idea and the great article [How to Implement a Secure Webhook in Node.js](https://medium.com/@faizan.ahmad.info/how-to-implement-a-secure-webhook-in-node-js-7c00e1314f3f)
-
-This Code is going to create custom webhook for use [Line Messaging API](https://developers.line.biz/en/docs/messaging-api/overview/)
-To make it integrate with the E-Manufac System.
-
-This code mainly as a backend system however we also provide the frontend side too.
-
-## Code Structure
-
-- **frontend**: Contains the code of React 19.0 on Vite 6.2 as a client to generate webhook link
-- **config**: Contains the configuration file for example the log managmenet system initialization
-- **functions**: Contains functions to handling the events for example, function for login from lime
-- **logs**: Contains the logs (ignored)
-- **eventHandling.js**: Contains code for handling the event by choosing the appropiate function to use
-- **server.js**: Main Logic of the software. It handle webhook, url and signature generator and it also serving the user interface
+# Mint Webhook
 
 # Original Readme
 

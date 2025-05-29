@@ -12,15 +12,7 @@ import logger from "./config/logger.js";
 async function eventHandling(event, code) {
   try {
     const eventText = event?.message?.text;
-    const splitedText = _.split(eventText, " ");
-    const command = splitedText[0];
-
-    if (command === "#LineLogin") {
-      return await systemLogin({ event, eventText, eventCode: code });
-    } else {
-      logger.info(`[${code}] Normal Message`);
-      return true;
-    }
+    console.log("Event Text:", eventText);
   } catch (error) {
     logger.error(
       `Error in processing the event: ${
