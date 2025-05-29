@@ -1,6 +1,9 @@
 import _ from "lodash";
-import { systemLogin } from "./functions/index.js";
 import logger from "./config/logger.js";
+import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config({});
 /**
  * We Command data by typeing # followed by command
  * in the chat box of line.
@@ -12,8 +15,34 @@ import logger from "./config/logger.js";
 async function eventHandling(event, code) {
   try {
     const eventText = event?.message?.text;
+    const replyToken = event.replyToken;
+
     console.log("Event Text:", eventText);
+    /**
+     * @type {import("axios").AxiosRequestConfig}
+     */
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.CHANNEL_ACCESS_TOKEN}`,
+      },
+      data: {
+        replyToken: replyToken,
+        messages: [
+          {
+            type: "text",
+            text: "ฮัลโหล สวัสดี",
+          },
+        ],
+      },
+      url: "https://api.line.me/v2/bot/message/reply",
+      method: "post",
+    };
+
+    const { status } = await axios(config);
+    console.log("Response status:", status);
   } catch (error) {
+    console.error("Error in event handling:", error.message);
     logger.error(
       `Error in processing the event: ${
         error?.response?.data?.error?.message || error?.message
