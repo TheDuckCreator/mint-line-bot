@@ -1,17 +1,24 @@
 version: "3.8"
 services:
   liff:
-    image: iarc/iaec-webhook:latest
+    image: ghcr.io/theduckcreator/mintbot:latest
     container_name: mysystem-webhook
     environment:
       - NODE_ENV=production
       - SECRET=your_shared_secret
       - WEBHOOK_TOKEN=your_shared_webhook_token
       - PASSWORD=your_password
+      - CHANNEL_ACCESS_TOKEN=your_channel_access_token
+      - OPEN_API_TOKEN=your_open_router_token
+      - OPEN_API_BASE_URL=https://openrouter.ai/api/v1
+      - APP_ID=your_app_id
+      - DISCORD_TOKEN=your_discord_token
+      - PUBLIC_KEY=your_public_key
+      - PORT=3000
     # If you run in portainer remove the ports
     ports:
       # Host:Container
-      - "3004:3004"
+      - "3000:3000"
     # If you run in portainer or use nginx-proxy ui add the network
     # If you use nginx on host machine (command line) remove the networks
     networks:

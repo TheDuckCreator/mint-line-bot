@@ -20,7 +20,7 @@ async function eventHandling(event, code) {
     console.log("Event Text:", eventText);
     const responseMessage = await chat({
       input: eventText,
-      useHistory: false,
+      useHistory: true,
     });
     /**
      * @type {import("axios").AxiosRequestConfig}

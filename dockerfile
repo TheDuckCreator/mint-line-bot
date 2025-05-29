@@ -1,4 +1,3 @@
-
 FROM node:22-alpine
 
 # Working Directory
@@ -9,6 +8,7 @@ WORKDIR /home/node/app
 COPY . /home/node/app/
 RUN npm ci
 RUN npm install -g pm2
-EXPOSE 3004
+EXPOSE 3000
+
 
 CMD [ "pm2-runtime","server.js" ]
