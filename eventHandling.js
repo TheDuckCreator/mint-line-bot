@@ -2,6 +2,7 @@ import _ from "lodash";
 import logger from "./config/logger.js";
 import axios from "axios";
 import dotenv from "dotenv";
+import chat from "./functions/chat.js";
 
 dotenv.config({});
 /**
@@ -18,6 +19,10 @@ async function eventHandling(event, code) {
     const replyToken = event.replyToken;
 
     console.log("Event Text:", eventText);
+    const responseMessage = await chat({
+      input: eventText,
+      useHistory: false,
+    });
     /**
      * @type {import("axios").AxiosRequestConfig}
      */
@@ -31,7 +36,7 @@ async function eventHandling(event, code) {
         messages: [
           {
             type: "text",
-            text: "ฮัลโหล สวัสดี",
+            text: responseMessage || "ไม่สามารถตอบได้อ่ะ",
           },
         ],
       },
